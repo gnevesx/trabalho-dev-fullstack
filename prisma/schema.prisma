@@ -1,0 +1,41 @@
+model Produto {
+  id                  Int       @id @default(autoincrement())
+  nome                String
+  descricao           String
+  preco               Float
+  quantidadeEmEstoque Int
+  categoriaId         Int      // ID da categoria do produto
+  compras             Compra[]  // Relacionamento com Compra
+  vendas              Venda[]   // Relacionamento com Venda
+  transacoesEstoque   TransacaoEstoque[] // Relacionamento com TransacaoEstoque
+}
+
+model Categoria {
+  id       Int      @id @default(autoincrement())
+  nome     String
+  // Removemos a relação com Produto
+}
+
+model Compra {
+  id         Int       @id @default(autoincrement())
+  produtoId  Int
+  produto    String   // Relacionamento com Produto
+  quantidade Int
+  dataCompra DateTime @default(now())
+}
+
+model Venda {
+  id         Int       @id @default(autoincrement())
+  produtoId  Int
+  produto    String   // Relacionamento com Produto
+  quantidade Int
+  dataVenda  DateTime @default(now())
+}
+
+model TransacaoEstoque {
+  id            Int       @id @default(autoincrement())
+  produtoId     Int
+  produto       String   // Relacionamento com Produto
+  quantidade    Int
+  dataTransacao DateTime @default(now())
+}
